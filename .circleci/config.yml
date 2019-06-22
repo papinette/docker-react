@@ -1,0 +1,49 @@
+general-config: &general-config
+  parallelism: 1
+  docker:
+    - image: circleci/circleci-cli
+
+version: 2
+
+jobs:
+  build-runtime:
+    <<: *general-config
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Image
+          command: docker build --pull -t react:runtime-alpine runtime
+      - run:
+          name: Show images
+          command: docker images
+  build-master:
+    <<: *general-config
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Image
+          command: docker build --pull -t react:master-alpine master
+      - run:
+          name: Show images
+          command: docker images
+  build-10.15:
+    <<: *general-config
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Image
+          command: docker build --pull -t react:10.15-alpine 10.15/alpine
+      - run:
+          name: Show images
+          command: docker images
+
+workflows:
+  version: 2
+  full_test_suite:
+    jobs:
+      - build-runtime
+      - build-master
+      - build-10.15
