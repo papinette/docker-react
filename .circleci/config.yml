@@ -35,7 +35,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build Image
-          command: docker build --pull -t react:e2e e2e
+          command: docker build --pull -t react:10.15-e2e 10.15/e2e
       - run:
           name: Show images
           command: docker images
