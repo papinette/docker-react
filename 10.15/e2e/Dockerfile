@@ -13,11 +13,14 @@ RUN sudo apt-get install xvfb \
     libxss1 \
     libasound2
 
+# Set the build directory.
+WORKDIR /home/circleci
+
 # package.json containing cypress
 COPY package.json .
 
 # Install cypress
-RUN sudo yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile
 
 # Install cypress executable
-RUN sudo yarn cypress install
+RUN yarn cypress install
