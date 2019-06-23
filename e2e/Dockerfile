@@ -4,7 +4,7 @@ FROM circleci/node:10.15
 ENV NODE_ENV=prod \
     CI=1
 
-RUN apt-get install xvfb \
+RUN sudo apt-get install xvfb \
     libgtk2.0-0 \
     libnotify-dev \
     libgconf-2-4 \
