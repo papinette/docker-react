@@ -28,6 +28,18 @@ jobs:
       - run:
           name: Show images
           command: docker images
+  build-e2e:
+    <<: *general-config
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Image
+          command: docker build --pull -t react:e2e e2e
+      - run:
+          name: Show images
+          command: docker images
+
   build-10.15:
     <<: *general-config
     steps:
@@ -46,4 +58,5 @@ workflows:
     jobs:
       - build-runtime
       - build-master
+      - build-e2e
       - build-10.15
